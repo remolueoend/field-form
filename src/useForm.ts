@@ -960,12 +960,12 @@ export class FormStore {
   private submit = () => {
     this.warningUnhooked();
 
-    this.validateFields()
+    return this.validateFields()
       .then(values => {
         const { onFinish } = this.callbacks;
         if (onFinish) {
           try {
-            onFinish(values);
+            return onFinish(values);
           } catch (err) {
             // Should print error if user `onFinish` callback failed
             console.error(err);
@@ -977,6 +977,7 @@ export class FormStore {
         if (onFinishFailed) {
           onFinishFailed(e);
         }
+        throw e;
       });
   };
 }

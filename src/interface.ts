@@ -189,7 +189,7 @@ export type ValuedNotifyInfo = NotifyInfo & {
 export interface Callbacks<Values = any> {
   onValuesChange?: (changedValues: any, values: Values) => void;
   onFieldsChange?: (changedFields: FieldData[], allFields: FieldData[]) => void;
-  onFinish?: (values: Values) => void;
+  onFinish?: (values: Values) => void | Promise<void>;
   onFinishFailed?: (errorInfo: ValidateErrorEntity<Values>) => void;
 }
 
@@ -241,7 +241,7 @@ export interface FormInstance<Values = any> {
   validateFields: ValidateFields<Values>;
 
   // New API
-  submit: () => void;
+  submit: () => Promise<void>;
 }
 
 export type InternalFormInstance = Omit<FormInstance, 'validateFields'> & {
